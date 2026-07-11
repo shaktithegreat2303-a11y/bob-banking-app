@@ -36,6 +36,7 @@ load_dotenv()  # load .env file if present
 from db import init_db, close_db, get_db, get_customer_by_username, get_account_by_customer_id
 from auth import verify_login, login_user, logout_user, login_required
 from transactions import process_deposit, process_withdrawal
+from decimal import Decimal, InvalidOperation
 
 # ---------------------------------------------------------------------------
 # Application factory
@@ -161,13 +162,14 @@ def withdraw():
             flash("Amount is required", "error")
             return render_template("withdraw.html", balance=current_balance)
         try:
-            amount_val = float(raw_amount)
-        except ValueError:
-            amount_val = -1
+            amount_val = Decimal(raw_amount.strip())
+        except InvalidOperation:
+            flash("Please enter a valid number", "error")
+            return render_template("withdraw.html", balance=current_balance)
         if amount_val <= 0:
             flash("Amount must be greater than zero", "error")
             return render_template("withdraw.html", balance=current_balance)
-        if amount_val > current_balance:
+        if amount_val > Decimal(str(current_balance)):
             flash("Insufficient funds", "error")
             return render_template("withdraw.html", balance=current_balance)
         ok, message = process_withdrawal(session["user_id"], raw_amount)
