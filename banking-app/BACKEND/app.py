@@ -157,6 +157,19 @@ def withdraw():
 
     if request.method == "POST":
         raw_amount = request.form.get("amount", "")
+        if not raw_amount or not raw_amount.strip():
+            flash("Amount is required", "error")
+            return render_template("withdraw.html", balance=current_balance)
+        try:
+            amount_val = float(raw_amount)
+        except ValueError:
+            amount_val = -1
+        if amount_val <= 0:
+            flash("Amount must be greater than zero", "error")
+            return render_template("withdraw.html", balance=current_balance)
+        if amount_val > current_balance:
+            flash("Insufficient funds", "error")
+            return render_template("withdraw.html", balance=current_balance)
         ok, message = process_withdrawal(session["user_id"], raw_amount)
         flash(message, "success" if ok else "error")
         if ok:
