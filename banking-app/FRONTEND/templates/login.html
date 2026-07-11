@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Login — SecureBank{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-sm-10 col-md-6 col-lg-5">
+
+    <div class="card shadow-sm mt-4">
+      <div class="card-header bg-primary text-white text-center py-3">
+        <h4 class="mb-0 fw-semibold">Customer Login</h4>
+      </div>
+
+      <div class="card-body p-4">
+        <form method="POST" action="{{ url_for('login') }}" novalidate>
+
+          <!-- Username -->
+          <div class="mb-3">
+            <label for="username" class="form-label fw-medium">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="Enter your username"
+              required
+              autofocus
+              autocomplete="username"
+            />
+          </div>
+
+          <!-- Password -->
+          <div class="mb-4">
+            <label for="password" class="form-label fw-medium">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Enter your password"
+              required
+              autocomplete="current-password"
+            />
+          </div>
+
+          <!-- Submit -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">
+              Login
+            </button>
+          </div>
+
+        </form>
+      </div><!-- /card-body -->
+
+      <div class="card-footer text-center text-muted py-2" style="font-size:0.85rem;">
+        Demo credentials: <strong>demo_user</strong> / <strong>password123</strong>
+      </div>
+    </div><!-- /card -->
+
+  </div><!-- /col -->
+</div><!-- /row -->
+{% endblock %}

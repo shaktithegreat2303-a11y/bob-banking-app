@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Withdraw — SecureBank{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-sm-10 col-md-6 col-lg-5">
+
+    <div class="card shadow-sm mt-2">
+      <div class="card-header bg-warning text-dark text-center py-3">
+        <h4 class="mb-0 fw-semibold">⬇ Withdraw Funds</h4>
+      </div>
+
+      <div class="card-body p-4">
+
+        <!-- Available balance hint -->
+        <div class="alert alert-info py-2 mb-4" role="alert" style="font-size:0.9rem;">
+          Available balance: <strong>${{ "{:,.2f}".format(balance) }}</strong>
+        </div>
+
+        <form method="POST" action="{{ url_for('withdraw') }}" novalidate>
+
+          <div class="mb-4">
+            <label for="amount" class="form-label fw-medium">Amount ($)</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                class="form-control form-control-lg"
+                placeholder="0.00"
+                min="0.01"
+                step="0.01"
+                max="{{ balance }}"
+                required
+                autofocus
+              />
+            </div>
+            <div class="form-text">Maximum withdrawal: ${{ "{:,.2f}".format(balance) }}</div>
+          </div>
+
+          <div class="d-grid mb-3">
+            <button type="submit" class="btn btn-warning btn-lg text-dark">
+              Confirm Withdrawal
+            </button>
+          </div>
+
+        </form>
+
+        <div class="text-center">
+          <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary btn-sm">
+            ← Back to Dashboard
+          </a>
+        </div>
+
+      </div><!-- /card-body -->
+    </div><!-- /card -->
+
+  </div><!-- /col -->
+</div><!-- /row -->
+{% endblock %}

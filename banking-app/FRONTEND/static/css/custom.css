@@ -1,0 +1,25 @@
+/*
+ * custom.css — Minor overrides on top of Bootstrap 5.
+ * All heavy lifting is done by Bootstrap utility classes directly in HTML.
+ */
+
+/* Make the navbar brand feel slightly larger */
+.navbar-brand {
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+/* Balance display — prevent overflow on very small screens */
+.display-4 {
+  word-break: break-all;
+}
+
+/* Card corners slightly softer */
+.card {
+  border-radius: 0.6rem;
+}
+
+/* Input group text matches form-control height in lg variant */
+.input-group .input-group-text {
+  font-size: 1.05rem;
+}
